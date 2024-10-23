@@ -1,0 +1,145 @@
+<template>
+    <div>
+      <div class="p-8 bg-white rounded-lg shadow">
+        <div class="flex justify-between">
+          <div class="text-lg font-black">Gallery Page</div>
+          <a href="video-detail/add">
+            <div class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-white rounded-lg bg-green-2 ">
+              <span class="flex-grow">Add New</span>
+            </div>
+          </a>
+        </div>
+        <div class="mt-4 rounded-lg border-primary-4">
+          <table class="w-full">
+            <tr class="text-xs font-black text-left border-b-2 border-gray-100 md:text-sm">
+              <th width="10%">&nbsp;&nbsp;Images</th>
+              <th width="30%" class="p-2 px-2 md:px-4">Title</th>
+              <th width="15%" class="p-2 px-2 md:px-4">Publish Date</th>
+              <th width="12%" class="p-2 px-2 md:px-4">Status</th>
+              <th width="10%" class="p-2 px-2 md:px-4"></th>
+            </tr>
+            <tr v-if="isLoading==true">
+              <td colspan="5" class="py-5 text-center" >Mengambil data...</td>
+            </tr>
+            <tr class="border-b-2 border-gray-100 text-2xs md:text-xs" v-for="data in data" :key="data.id" v-if="isLoading==false">
+              <td class="px-1 py-3 md:py-2 md:px-4">
+                <a :href="`news-detail/${data.id}`">
+                  <img
+                    :src="data.url_img"
+                    alt="event"
+                    width="100"
+                  />
+                </a>
+              </td>
+              <td class="px-1 py-3 md:py-2 md:px-4">{{ data.title }}</td>
+              <td class="px-1 py-3 md:py-2 md:px-4">{{ $dayjs(data.publish_date).format('D MMMM YYYY') }}</td>
+              <td class="px-1 py-3 md:py-2 md:px-4">
+                <div 
+                  class="rounded-lg p-[6px] pl-0 text-sm font-bold w-36 text-center cursor-pointer" 
+                  :class="(data.is_active==1) ? 'bg-green-4 text-green-2 border-green-2' : 'bg-red-3 text-red-2 border-red-2'"
+                  @click="confirmStatus(data.id, data.is_active)"
+                >
+                  <img
+                    :src="`../images/${(data.is_active==1) ? 'check' : 'cross'}.svg`"
+                    class="inline-block mx-auto mr-1"
+                    alt="check"
+                    width="16"
+                    height="16"
+                  />
+                  {{ data.is_active==1 ? 'Active' : 'Inactive' }}
+                </div>
+              </td>
+              <td class="px-1 py-3 text-right md:py-2 md:px-4">
+                <a :href="`video-detail/${data.id}`">
+                  <img
+                    src="~/assets/images/edit.svg"
+                    class="inline-block mx-auto ml-2 cursor-pointer"
+                    alt="Detail"
+                    width="32"
+                    height="32"
+                  />
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <AdminPopup
+        :title="`${(selectedStatus.status)==1 ? 'Inactivate' : 'Activate'} event`"
+        :message="`Are you sure you want to  ${(selectedStatus.status)==1 ? 'inactivate' : 'activate'} this data?`"
+        :type="'popup-inactive-event'"
+        :buttonText="`${(selectedStatus.status)==1 ? 'Inactivate' : 'Activate'} Event`"
+        @close-popup="togglePopupStatus"
+        @action="changeStatus"
+        v-if="isPopupStatus"
+      />
+    </div>
+  </template>
+  
+  <script lang="ts">
+  definePageMeta({
+    layout: 'admin',
+    middleware: 'auth' // this should match the name of the file inside the middleware directory 
+  })
+  
+  const config = useRuntimeConfig()
+  
+  export default {
+    name: "AdminNews",
+    data() {
+      return {
+        isLoading: true,
+        data: [],
+        isPopupStatus: false,
+        selectedStatus: {
+          id: '',
+          status: ''
+        },
+        token: '',
+  
+      }
+    },
+    mounted() {
+      this.loadToken()
+    },
+    methods: {
+      loadToken() {
+        const token = useCookie('token')
+        this.token = token.value
+        this.loadData(token.value)
+      },
+      async loadData(token) {
+        const data = await fetch(config.public.baseURL + '/article?type_id=4&limit=1000', { 
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then(res => res.json())
+        if ( data?.data.length > 0) {
+          this.data = data.data
+        }
+        this.isLoading = false
+      },
+      togglePopupStatus(){
+        this.isPopupStatus = !this.isPopupStatus
+      },
+      confirmStatus(id, status) {
+        this.selectedStatus.id = id
+        this.selectedStatus.status = status
+        this.togglePopupStatus()
+      },
+      async changeStatus() {
+        this.togglePopupStatus()
+        const body = new FormData();
+        body.append('is_active', this.selectedStatus.status ? 0 : 1);
+        await fetch(config.public.baseURL + '/article/' + this.selectedStatus.id, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          },
+          body: body,
+        })
+        this.loadToken()
+      },
+    }
+  }
+  </script>
