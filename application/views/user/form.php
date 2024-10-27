@@ -17,7 +17,6 @@
             <div class="mb-4">
                 <label class="block text-sm font-medium">Password</label>
                 <input type="password" name="user_password" class="border rounded w-full p-2 rounded-[20px]" <?= $user ? '' : 'required'; ?>>
-                <small class="text-gray-500">Kosongkan jika tidak ingin mengubah password.</small>
             </div>
           <?php } ?>
           <button type="submit" class="bg-blue-400 text-white py-2 px-4 rounded-l-[20px]">Simpan</button>
