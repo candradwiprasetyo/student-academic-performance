@@ -31,7 +31,7 @@
                 <span class="text-base font-bold text-gray-600">Total Mahasiswa</span>
               </div>
               <div class="flex mt-16">
-                <div class="text-3xl font-bold opacity-60">100</div>
+                <div class="text-3xl font-bold opacity-60"><?= $total_students ?></div>
               </div>
             </div>
             <div class="absolute bottom-0 right-6">
@@ -53,7 +53,7 @@
                 <span class="text-base font-bold text-gray-600">Total Kampus</span>
               </div>
               <div class="flex mt-16">
-                <div class="text-3xl font-bold opacity-60">8</div>
+                <div class="text-3xl font-bold opacity-60"><?= $total_campus ?></div>
               </div>
             </div>
             <div class="absolute bottom-0 right-6">
