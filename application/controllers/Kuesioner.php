@@ -6,6 +6,7 @@ class Kuesioner extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Campus_model');
+        $this->load->model('Student_model');
         $this->load->library('session');
         $this->load->helper('url');
 
@@ -32,7 +33,7 @@ class Kuesioner extends CI_Controller {
             'campus_id' => $this->input->post('campus_id'),
         ];
 
-        $this->session->set_flashdata('success', 'Data berhasil disimpan.');
+        $this->session->set_flashdata('success', 'Data berhasil disimpan. Kontribusi Anda sangat berharga dalam penelitian ini. Terima kasih');
         $this->Student_model->insert_student($data);
         
         redirect('kuesioner');

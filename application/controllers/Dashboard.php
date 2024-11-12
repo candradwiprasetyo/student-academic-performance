@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
     parent::__construct();
     $this->load->model('Campus_model');
     $this->load->model('Student_model');
+    $this->load->model('Dashboard_model');
     $this->load->library('session');
     $this->load->helper('url');
     
@@ -20,6 +21,9 @@ class Dashboard extends CI_Controller {
     $data['total_campus'] = count($data['campus']);
     $data['students'] = $this->Student_model->get_students_with_campus();
     $data['total_students'] = count($data['students']);
+    $data['campus_distribution'] = $this->Dashboard_model->get_student_count_per_campus();
+    $data['average_gpa_per_campus'] = $this->Dashboard_model->get_average_gpa_per_campus();
+    $data['average_transportation_score_per_campus'] = $this->Dashboard_model->get_average_transportation_score_per_campus();
 
     $this->load->view('layouts/header');
     $this->load->view('layouts/navigation');

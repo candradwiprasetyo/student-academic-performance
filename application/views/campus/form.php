@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
     <div class="bg-white rounded-[20px] shadow relative w-full">
         <div class="p-6">
             <h2 class="text-xl font-semibold mb-4"><?= $campus ? 'Edit' : 'Tambah' ?> Data Kampus</h2>

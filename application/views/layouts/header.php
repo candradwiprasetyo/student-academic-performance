@@ -11,4 +11,3 @@
     <link rel="icon" href="<?php echo base_url('assets/images/favicon.ico'); ?>" type="image/x-icon">
 </head>
 <body>
-    

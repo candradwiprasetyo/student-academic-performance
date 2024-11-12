@@ -24,10 +24,16 @@ class Student_model extends CI_Model {
         return $this->db->delete('students', ['student_id' => $id]);
     }
 
-    public function get_students_with_campus() {
+    public function get_students_with_campus($student_name = null, $campus_id = null) {
         $this->db->select('students.*, campus.campus_name');
         $this->db->from('students');
         $this->db->join('campus', 'students.campus_id = campus.campus_id', 'left');
+        if ($student_name) {
+            $this->db->like('students.student_name', $student_name);
+        }
+        if ($campus_id) {
+            $this->db->where('students.campus_id', $campus_id);
+        }
         $query = $this->db->get();
         return $query->result();
     }

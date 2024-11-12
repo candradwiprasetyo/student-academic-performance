@@ -16,7 +16,10 @@ class Student extends CI_Controller {
     }
 
     public function index() {
-        $data['students'] = $this->Student_model->get_students_with_campus();
+        $student_name = $this->input->get('student_name');
+        $campus_id = $this->input->get('campus_id'); 
+        $data['students'] = $this->Student_model->get_students_with_campus($student_name, $campus_id);
+        $data['campuses'] = $this->Campus_model->get_all_campus();
         $data['total_students'] = count($data['students']);
         $this->load->view('layouts/header');
         $this->load->view('layouts/navigation');
@@ -66,5 +69,14 @@ class Student extends CI_Controller {
         $this->Student_model->delete_student($id);
         $this->session->set_flashdata('success', 'Data siswa berhasil dihapus.');
         redirect('student');
+    }
+
+    public function export() {
+        $student_name = $this->input->get('student_name');
+        $campus_id = $this->input->get('campus_id');
+        $data = $this->Student_model->get_students_with_campus($student_name, $campus_id);
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename="students_data.json"');
+        echo json_encode($data);
     }
 }

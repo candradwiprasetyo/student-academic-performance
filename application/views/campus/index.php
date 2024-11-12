@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
   <div class="bg-white rounded-[20px] shadow bg-white relative w-full">
     <div class="flex items-center justify-between">
       <div class="pt-6 px-8">

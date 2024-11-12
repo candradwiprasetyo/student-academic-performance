@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
     <div class="bg-white rounded-[20px] shadow bg-white relative w-full">
         <div class="p-8">
             <h2 class="text-xl font-semibold mb-4"><?= $student ? 'Edit Data Mahasiswa' : 'Tambah Data Mahasiswa'; ?></h2>

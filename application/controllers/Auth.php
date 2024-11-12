@@ -41,7 +41,8 @@ class Auth extends CI_Controller {
             $this->session->set_userdata('logged_in', true);
             $this->session->set_userdata('user_id', $user->user_id);
             $this->session->set_userdata('user_name', $user->user_name);
-            redirect('/'); 
+            $this->session->set_userdata('user_role', $user->user_role);
+            redirect('/dashboard'); 
         } else {
             $this->session->set_flashdata('error', 'Login failed. Wrong email or password');
             redirect('login?err=1');

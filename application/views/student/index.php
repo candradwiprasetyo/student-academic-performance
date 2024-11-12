@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
     <div class="bg-white rounded-[20px] shadow bg-white relative w-full">
         <div class="flex items-center justify-between">
             <div class="pt-6 px-8">
@@ -6,7 +6,28 @@
                 <div class="text-sm text-gray-400 text-semibold">Total <?= $total_students; ?> data</div>
             </div>
             <div class="pr-6">
+                <a href="<?= base_url('student/export?student_name=' . $this->input->get('student_name') . '&campus_id=' . $this->input->get('campus_id')); ?>" class="bg-orange-400 py-2 px-5 text-white rounded-[20px] text-sm font-bold mr-2">Export JSON</a>
                 <a href="<?= base_url('student/form'); ?>" class="bg-blue-400 py-2 px-5 text-white rounded-[20px] text-sm font-bold">Tambah Data</a>
+            </div>
+        </div>
+        <div class="flex justify-between px-6">
+            <div class="relative flex-1">
+                
+            </div>
+            <div class="relative flex-1">
+                <form id="searchForm" action="<?= base_url('student'); ?>" method="get">
+                    <select name="campus_id" class="border p-2 rounded-[20px] w-[49%] text-sm" onchange="document.getElementById('searchForm').submit();">
+                        <option value="">Semua kampus</option>
+                        <?php foreach ($campuses as $campus): ?>
+                            <option value="<?= $campus->campus_id; ?>" <?= $this->input->get('campus_id') == $campus->campus_id ? 'selected' : ''; ?>>
+                                <?= $campus->campus_name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="text" name="student_name" placeholder="Cari nama mahasiswa" 
+                            class="border py-2 px-4 rounded-[20px] text-sm w-[49%] float-right" value="<?= $this->input->get('student_name'); ?>" >
+                    
+                </form>
             </div>
         </div>
         

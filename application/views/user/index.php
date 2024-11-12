@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
   <div class="bg-white rounded-[20px] shadow relative w-full">
     <div class="flex items-center justify-between">
       <div class="pt-6 px-8">
@@ -22,6 +22,7 @@
                   <th class="p-8 pb-4">Nomor</th>
                   <th class="pt-8 pb-4">Nama</th>
                   <th class="pt-8 pb-4">Email</th>
+                  <th class="pt-8 pb-4">Role</th>
                   <th align="right" class="pt-8 pb-4 pr-8"></th>
               </tr>
           </thead>
@@ -34,6 +35,7 @@
                       <td class="pl-8 py-3"><?= $nomor++ ?></td>
                       <td><?= $row->user_name; ?></td>
                       <td><?= $row->user_email; ?></td>
+                      <td><?= $row->user_role; ?></td>
                       <td align="right" class="pr-6">
                         <a href="<?= base_url('user/form/' . $row->user_id); ?>" class="bg-green-400 py-2 px-5 text-white rounded-l-[20px] text-sm font-bold">Edit</a>
                         <a href="<?= base_url('user/delete/' . $row->user_id); ?>" class="bg-red-400 py-2 px-5 text-white rounded-r-[20px] text-sm font-bold" onclick="return confirm('Anda yakin ingin menghapus data ini?');">Hapus</a>

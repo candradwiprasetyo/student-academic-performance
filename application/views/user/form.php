@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
   <div class="bg-white rounded-[20px] shadow relative w-full">
     <div class="p-6">
       <h2 class="text-xl font-semibold mb-4"><?= $user ? 'Edit Pengguna' : 'Tambah Pengguna' ?></h2>
@@ -10,6 +10,13 @@
           <div class="mb-4">
               <label class="block text-sm font-medium">Email</label>
               <input type="email" name="user_email" value="<?= $user ? $user->user_email : ''; ?>" class="border rounded w-full p-2 rounded-[20px]" required>
+          </div>
+          <div class="mb-4">
+              <label class="block text-sm font-medium">Role</label>
+              <select class="border rounded w-full p-2 rounded-[20px]" name="user_role">
+                <option value="admin">Admin</option>
+                <option value="staf">Staf</option>
+              </select>
           </div>
           <?php
           if (!$user) {

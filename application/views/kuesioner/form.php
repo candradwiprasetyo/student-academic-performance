@@ -1,7 +1,12 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 max-w-7xl px-6">
     <div class="bg-white rounded-[20px] shadow bg-white relative w-full">
         <div class="p-8">
             <h2 class="text-xl font-semibold mb-4">Kuesioner Mahasiswa Binus</h2>
+            <?php if ($this->session->flashdata('success')): ?>
+                <div class="bg-green-500 text-white p-4 rounded-[20px] my-4 flex items-center gap-2">
+                    <i class="material-icons text-white w-6">check</i> <?= $this->session->flashdata('success'); ?>
+                </div>
+            <?php endif; ?>
             <div class="text-base text-gray-400 text-semibold leading-loose	mb-3 text-sm">Kuesioner ini digunakan untuk mengidentifikasi pola dan hubungan antara lokasi kampus dan kinerja akademik mahasiswa di Universitas Bina Nusantara (BINUS). Dengan hasil yang diperoleh, diharapkan pihak manajemen BINUS dapat merumuskan strategi yang lebih efektif dalam mendukung prestasi akademik mahasiswa di seluruh lokasi kampus, serta meningkatkan kualitas pendidikan secara keseluruhan.
             </div>
             <form action="<?= base_url('kuesioner/save/'); ?>" method="post">
