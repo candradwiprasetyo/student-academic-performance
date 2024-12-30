@@ -15,7 +15,8 @@ class Campus extends CI_Controller {
   }
 
   public function index() {
-      $data['campus'] = $this->Campus_model->get_all_campus();
+      $campus_name = $this->input->get('campus_name');
+      $data['campus'] = $this->Campus_model->get_all_campus($campus_name);
       $data['total_campus'] = count($data['campus']);
       $this->load->view('layouts/header');
       $this->load->view('layouts/navigation');

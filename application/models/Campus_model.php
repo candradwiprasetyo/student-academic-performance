@@ -3,8 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Campus_model extends CI_Model {
 
-    public function get_all_campus() {
-        return $this->db->get('campus')->result();
+    public function get_all_campus($campus_name='') {
+        if ($campus_name) {
+            $this->db->like('campus.campus_name', $campus_name);
+        }
+        $query = $this->db->get('campus');
+        return $query->result();
     }
 
     public function insert_campus($data) {

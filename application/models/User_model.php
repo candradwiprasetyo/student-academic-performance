@@ -3,8 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_Model {
 
-    public function get_all_users() {
-        return $this->db->get('users')->result();
+    public function get_all_users($user_name = null) {
+        if ($user_name) {
+            $this->db->like('users.user_name', $user_name);
+        }
+        $query = $this->db->get('users');
+        return $query->result();
     }
 
     public function get_user_by_id($id) {

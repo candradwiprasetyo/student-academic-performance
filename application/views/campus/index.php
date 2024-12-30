@@ -9,7 +9,15 @@
         <a href="<?= base_url('campus/form'); ?>" class="bg-blue-400 py-2 px-5 text-white rounded-[20px] text-sm font-bold">Tambah Data</a>
       </div>
     </div>
-    
+    <div class="flex justify-between px-6">
+        <div class="relative flex-1">
+            <form id="searchForm" action="<?= base_url('campus'); ?>" method="get">
+                <input type="text" name="campus_name" placeholder="Cari nama kampus" 
+                        class="border py-2 px-4 rounded-[20px] text-sm w-[30%] float-right" value="<?= $this->input->get('campus_name'); ?>" >
+                
+            </form>
+        </div>
+    </div>
     <div class="pb-6">
       <?php if ($this->session->flashdata('success')): ?>
           <div class="bg-green-500 text-white p-4 rounded-[20px] mx-8 mt-4 flex items-center gap-4" id="alert">

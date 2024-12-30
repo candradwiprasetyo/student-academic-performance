@@ -53,12 +53,14 @@
         Kampus
       </a>
     </div>
-    <div class="flex-none flex items-center gap-3">
-      <a href="<?php echo base_url('/user'); ?>" class="flex items-center gap-3">
-        <i class="material-icons text-blue-300">admin_panel_settings</i>
-        Pengguna
-      </a>
-    </div>
+    <?php if($this->session->userdata('user_role') == 'admin') { ?>
+      <div class="flex-none flex items-center gap-3">
+        <a href="<?php echo base_url('/user'); ?>" class="flex items-center gap-3">
+          <i class="material-icons text-blue-300">admin_panel_settings</i>
+          Pengguna
+        </a>
+      </div>
+    <?php } ?>
   </div>
 </div>
 
